@@ -1,6 +1,6 @@
 # CSS reference
 
-[Basic example](examples/index.html) · [Every option, live](examples/options.html)
+[Basic example](https://dance.archi/scrollbars/) · [Every option, live](https://dance.archi/scrollbars/options.html)
 
 ## IE properties
 

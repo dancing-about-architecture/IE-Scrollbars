@@ -26,7 +26,7 @@ body {
 }
 ```
 
-[All CSS options, with pictures](CSS.md) · [Basic example](examples/index.html)
+[All CSS options, with pictures](CSS.md) · [Basic example](https://dance.archi/scrollbars/)
 
 `scrollbar-base-color` is ignored. Old hex colours need a `#`; stylesheet discovery needs same-origin CSS. Other short notes are at the end of the [reference](CSS.md#notes).
 
@@ -37,12 +37,12 @@ Two archived profiles and a restored layout preview, rendered with this script. 
 | Tams | Lily Allen | Happy Rainbow Mushies |
 | --- | --- | --- |
 | <a href="images/myspace-tams.png"><img src="images/myspace-tams.png" width="200" alt="Tams's archived MySpace profile with pink scrollbars"></a> | <a href="images/myspace-lily.png"><img src="images/myspace-lily.png" width="200" alt="Lily Allen's archived MySpace profile with a coloured dot background"></a> | <a href="images/myspace-rainbow.png"><img src="images/myspace-rainbow.png" width="200" alt="Happy Rainbow Mushies with pink and yellow scrollbars"></a> |
-| [Archive.org](https://web.archive.org/web/20060411202310/http://profile.myspace.com/index.cfm?fuseaction=user.viewProfile&friendID=2232347) | [Archive.org](https://web.archive.org/web/20060411135334/http://myspace.com/lilymusic) | [Try the layout](examples/myspace/rainbow.html) · [Archive.org](https://web.archive.org/web/20090425014754/http://www.createblog.com/myspace-layouts/18351-happy-rainbow-mushies/preview/) |
+| [Archive.org](https://web.archive.org/web/20060411202310/http://profile.myspace.com/index.cfm?fuseaction=user.viewProfile&friendID=2232347) | [Archive.org](https://web.archive.org/web/20060411135334/http://myspace.com/lilymusic) | [Try the layout](https://dance.archi/scrollbars/myspace/rainbow.html) · [Archive.org](https://web.archive.org/web/20090425014754/http://www.createblog.com/myspace-layouts/18351-happy-rainbow-mushies/preview/) |
 
 Happy Rainbow Mushies is a 2007 layout by [falsetigerlimbs](https://www.createblog.com/myspace-layouts/18351-happy-rainbow-mushies/). Its original GIFs and scrollbar palettes are included in the live example. Old MySpace actions are inactive.
 
 Old colour syntax was cleaned up where needed. [Sources and screenshot notes](images/README.md).
 
-Serve this folder with `python3 -m http.server 8000`, then open <http://localhost:8000/examples/>.
+Try the examples live at <https://dance.archi/scrollbars/>.
 
 [MIT license](LICENSE).

@@ -11,10 +11,10 @@ These are current Chromium screenshots using `ie-scrollbar.js`, not original scr
 
 The MySpace HTML and recovered images/stylesheets come from the Internet Archive. The pages retain their authored scrollbar palettes. In screenshot copies, hashless hex colours received a `#` and `!important` suffixes were removed from legacy scrollbar declarations. Unrecovered image assets were omitted; old scripts and embedded players were omitted. Lily Allen’s empty `.r{}` IE hacks and a line break inside a property name were removed so the authored palette parses correctly. Tams's original `lilac` track value is not a valid CSS colour and is left unchanged.
 
-The Rainbow screenshot comes from [the restored live layout](../examples/myspace/rainbow.html), using falsetigerlimbs’s original artwork and CSS. Hex colours were normalized, an outer positioning container preserves the overlay when scrollbars mount, and the unavailable comment-button image has a plain button replacement. MySpace actions are inactive. [Artwork sources](../examples/myspace/assets/README.md).
+The Rainbow screenshot comes from [the restored live layout](https://dance.archi/scrollbars/myspace/rainbow.html), using falsetigerlimbs’s original artwork and CSS. Hex colours were normalized, an outer positioning container preserves the overlay when scrollbars mount, and the unavailable comment-button image has a plain button replacement. MySpace actions are inactive. [Artwork sources](../examples/myspace/assets/README.md).
 
 The dance.archi screenshot uses its page and assets with this repository's script in place of its existing scrollbar scripts.
 
-The CSS reference images are rendered from [the live examples](../examples/options.html). The star and checkerboard assets are included in [examples/assets](../examples/assets/). Most examples use DPR 1.5; the fixed-dither example uses DPR 2.5.
+The CSS reference images are rendered from [the live examples](https://dance.archi/scrollbars/options.html). The star and checkerboard assets are included in [examples/assets](../examples/assets/). Most examples use DPR 1.5; the fixed-dither example uses DPR 2.5.
 
 Third-party page artwork belongs to its original owners; the project's MIT license applies to its code and original examples.
