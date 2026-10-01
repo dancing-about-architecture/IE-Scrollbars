@@ -16,7 +16,9 @@ It also adds options IE never had: different glyphs, image textures, adjustable 
 <script src="ie-scrollbar.js" defer></script>
 ```
 
-One file, no dependencies or build step. Scrolling elements and the page are picked up automatically. The wheel, keyboard, arrow buttons, and draggable thumb use the page's normal scroll position.
+One file, no dependencies or build step. Scrolling elements and the page are picked up automatically. The wheel, keyboard, arrow buttons, and draggable thumb use the page's normal scroll position. Thumbs support mouse, touch, and pen dragging.
+
+Phones keep native scrolling and scrollbars by default. To enable custom scrollbars on phones too, set `--ie-scrollbar-mobile: 1` on `:root` for the whole page, or on an individual scrolling element.
 
 ```css
 body {

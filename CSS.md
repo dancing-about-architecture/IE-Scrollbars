@@ -52,6 +52,22 @@ Use literal `px` values for bar size, minimum thumb size, button size, and borde
 }
 ```
 
+### Mobile phones
+
+Phones use native scrolling and scrollbars by default. Detection uses the browser's mobile device flag or a phone user agent; viewport width alone does not disable desktop scrollbars. Tablets without a phone/mobile identity keep custom scrollbars.
+
+Set `--ie-scrollbar-mobile: 1` to enable custom scrollbars on phones. The flag follows the existing boolean convention: only `1` enables it; unset or `0` keeps native scrollbars on phones. Desktop behaviour is unchanged.
+
+```css
+:root {
+  --ie-scrollbar-mobile: 1;
+}
+```
+
+Set it on `:root` to opt in the page and its scrollboxes through inheritance, on `body` for the page and its descendants, or on an individual scrolling element. An element can override an inherited opt-in with `0`. Same-origin iframe documents read their own CSS flag.
+
+Unlike the rendering options copied at mount time, this flag is read from the scrolling element on each scan. Changes can mount or remove custom scrollbars; use `IEScrollbarAuto.rescan()` after CSSOM edits that do not trigger a DOM mutation.
+
 ### Palette aliases
 
 Set these on a **parent** of the scrolling element so the generated wrapper inherits them. Original IE declarations are applied on the wrapper and take precedence over inherited aliases.

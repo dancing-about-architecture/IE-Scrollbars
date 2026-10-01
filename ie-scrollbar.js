@@ -45,6 +45,7 @@
     "  display: flex;",
     "  flex-direction: column;",
     "  user-select: none;",
+    "  touch-action: none;",
     "  font-size: 0;",
     "  z-index: 0;",
     "  background-color: var(--ie-track-dither-b);",
@@ -1219,8 +1220,11 @@
     });
 
     listen(this.thumb, "pointerdown", function (e) {
+      if (!e.isPrimary || e.button !== 0) return;
       e.preventDefault();
       if (self._endDrag) self._endDrag();
+      var pointerId = e.pointerId;
+      self.thumb.setPointerCapture(pointerId);
       if (thumbPressedInvertRequested(win, self.thumb)) self.thumb.classList.add("ie-scrollbar__thumb--pressed");
       var startPointer = vertical ? e.clientY : e.clientX;
       var startScroll = vertical ? self.target.scrollTop : self.target.scrollLeft;
@@ -1233,6 +1237,7 @@
       var trackRange = trackSize - thumbSize;
 
       function onMove(moveEvent) {
+        if (moveEvent.pointerId !== pointerId) return;
         if (trackRange <= 0 || scrollRange <= 0) return;
         var pointer = vertical ? moveEvent.clientY : moveEvent.clientX;
         var delta = pointer - startPointer;
@@ -1242,13 +1247,16 @@
         self.target[vertical ? "scrollTop" : "scrollLeft"] = next;
       }
 
-      function onUp() {
+      function onUp(endEvent) {
+        if (endEvent && endEvent.type !== "blur" && endEvent.pointerId !== pointerId) return;
         self.thumb.classList.remove("ie-scrollbar__thumb--pressed");
         win.removeEventListener("pointermove", onMove);
         win.removeEventListener("pointerup", onUp);
         win.removeEventListener("pointercancel", onUp);
         win.removeEventListener("blur", onUp);
+        self.thumb.removeEventListener("lostpointercapture", onUp);
         self._endDrag = null;
+        if (self.thumb.hasPointerCapture(pointerId)) self.thumb.releasePointerCapture(pointerId);
       }
 
       self._endDrag = onUp;
@@ -1256,6 +1264,7 @@
       win.addEventListener("pointerup", onUp);
       win.addEventListener("pointercancel", onUp);
       win.addEventListener("blur", onUp);
+      self.thumb.addEventListener("lostpointercapture", onUp);
     });
   };
 
@@ -1796,11 +1805,19 @@
 
   // Automatic mounting
 
+  // Detect phones without treating narrow desktop windows or touch laptops as mobile.
+  function isMobilePhone(win) {
+    var nav = win.navigator || {};
+    if (nav.userAgentData && nav.userAgentData.mobile === true) return true;
+    return /iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10.*Mobile|Opera Mini|IEMobile/i.test(nav.userAgent || "");
+  }
+
   function isStylesheetNode(node) {
     return node.nodeType === 1 && (node.tagName === "STYLE" || node.tagName === "LINK");
   }
 
   function createScope(doc, win) {
+    var mobilePhone = isMobilePhone(win);
     var mountedElements = new Map();
     var windowInstances = { vertical: null, horizontal: null };
     var windowObserved = false;
@@ -1820,6 +1837,12 @@
       : null;
 
     // Candidate detection
+
+    // Read the target directly so inherited flags and later CSS changes take effect.
+    function customScrollbarsEnabled(el, computed) {
+      return !mobilePhone || (computed || win.getComputedStyle(el))
+        .getPropertyValue("--ie-scrollbar-mobile").trim() === "1";
+    }
 
     function isInternal(el) {
       return !!(el.closest && el.closest("[data-ie-scrollbar-internal]"));
@@ -1899,8 +1922,8 @@
     }
 
     function syncElement(el) {
-      var rendered = isRendered(el);
-      var computed = rendered ? win.getComputedStyle(el) : null;
+      var computed = win.getComputedStyle(el);
+      var rendered = customScrollbarsEnabled(el, computed) && isRendered(el);
       var wantVertical = rendered && isOverflowingVertically(el, computed) && !hasFailed(el, "vertical");
       var wantHorizontal = rendered && isOverflowingHorizontally(el, computed) && !hasFailed(el, "horizontal");
       var entry = mountedElements.get(el);
@@ -1989,8 +2012,9 @@
     }
 
     function updateWindowScrollbar() {
-      syncWindowOrientation("vertical", windowShouldScrollVertically());
-      syncWindowOrientation("horizontal", windowShouldScrollHorizontally());
+      var enabled = customScrollbarsEnabled(doc.body);
+      syncWindowOrientation("vertical", enabled && windowShouldScrollVertically());
+      syncWindowOrientation("horizontal", enabled && windowShouldScrollHorizontally());
     }
 
     // Same-origin iframe recursion
