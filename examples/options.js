@@ -167,7 +167,7 @@ window.scrollbarExamples = [
   {
     "property": "--ie-scrollbar-min-thumb-size",
     "default": "`32px`",
-    "description": "Minimum thumb length, limited by available track space.",
+    "description": "Minimum thumb length. Tracks shorter than 64px use a half-track thumb instead.",
     "group": "Geometry and flags",
     "value": "72px",
     "support": {},
@@ -201,20 +201,6 @@ window.scrollbarExamples = [
       "border"
     ],
     "context": "A 6px border and explicit 6px inset; only the ends change."
-  },
-  {
-    "property": "--ie-scrollbar-small-track-half-thumb",
-    "default": "`0`",
-    "description": "`1`: use a half-track thumb when the track is shorter than 64px.",
-    "group": "Geometry and flags",
-    "value": "1",
-    "support": {
-      "--ie-scrollbar-size": "16px"
-    },
-    "modes": [
-      "short"
-    ],
-    "context": "A 76px-tall pane; track shorter than 64px."
   },
   {
     "property": "--ie-scrollbar-blocky",

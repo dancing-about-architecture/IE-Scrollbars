@@ -476,7 +476,6 @@
     "--ie-scrollbar-track-background-repeat",
     "--ie-scrollbar-size",
     "--ie-scrollbar-min-thumb-size",
-    "--ie-scrollbar-small-track-half-thumb",
     "--ie-scrollbar-blocky",
     "--ie-scrollbar-smooth",
     "--ie-scrollbar-pressed-invert",
@@ -522,11 +521,6 @@
   function resolveMinThumbSizePx(win, el) {
     var px = parseFloat(win.getComputedStyle(el).getPropertyValue("--ie-scrollbar-min-thumb-size"));
     return px > 0 ? px : MIN_THUMB_SIZE;
-  }
-
-  function smallTrackHalfThumbRequested(win, el) {
-    if (!el || !el.isConnected) return false;
-    return win.getComputedStyle(el).getPropertyValue("--ie-scrollbar-small-track-half-thumb").trim() === "1";
   }
 
   // Base-color derivation. Approximation; not measured IE behavior.
@@ -1279,7 +1273,7 @@
     var scrollRange = contentSize - viewportSize;
 
     var minThumbSizePx = resolveMinThumbSizePx(this.win, this.el);
-    var halfThumbActive = smallTrackHalfThumbRequested(this.win, this.el) && trackSize < SMALL_TRACK_THRESHOLD;
+    var halfThumbActive = trackSize < SMALL_TRACK_THRESHOLD;
     var thumbSize = halfThumbActive
       ? trackSize * SMALL_TRACK_THUMB_FRACTION
       : Math.min(trackSize, Math.max(minThumbSizePx, trackSize * (viewportSize / contentSize)));
